@@ -1,0 +1,80 @@
+header {
+	background-attachment:		scroll,							scroll,					fixed;
+	background-image:			url('../../images/svg/top-3200.svg'),		url(""), url("../../images/header.jpg");
+	background-position:		bottom center,					top left,				center bottom;
+	background-repeat:			repeat-x,						repeat,					no-repeat;
+	background-size:			3200px 460px,					auto,					cover;
+	color: rgba(255, 255, 255, 0.8);
+	padding: 10em 0 20em 0;
+	position: relative;
+	text-align: center;
+	&:before,	&:after {
+		background: rgba(224, 224, 224, 0.75);
+		content: '';
+		left: 50%;
+		position: absolute;
+		width: 1px;
+		z-index: 0;
+	}
+	&:before {
+		height: calc(100% - 50px);
+		opacity: 0.15;
+		top: 0;
+	}
+	&:after {
+		bottom: 0;
+		height: 50px;
+	}
+	.logo-icon {
+		margin-bottom:60px;
+	}
+	.logo-text {
+		
+	}
+}
+
+@media screen and (max-width: 1680px) {
+	header {
+    padding: 8em 0 16em 0;
+	}
+}
+
+@media screen and (max-width: 1199.98px) {
+	header {
+		background-attachment: scroll,							scroll,							scroll;
+		background-image: url("../../images/svg/top-1600.svg"), url(""), url("../../images/header.jpg");
+		background-size: 1600px 230px,					auto,							cover;
+		padding: 6em 0 12em 0;
+		&:before {
+			height: calc(100% - 25px);
+		}
+		&:after {
+			height: 25px;
+		}
+	}
+}
+
+@media screen and (max-width: 991.98px) {
+	header {
+		background-image: url("../../images/svg/top-1280.svg"), url(""), url("../../images/header.jpg");
+		background-size: 1280px 184px,						auto,							cover;
+		padding: 3em 0 7em 0;
+		&:before {
+			height: calc(100% - 20px);
+		}
+		&:after {
+			height: 20px;
+		}
+	}
+}
+
+@media screen and (max-width: 767.98px) {
+	
+}
+
+@media screen and (max-width: 575.98px) {
+	header {
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+}

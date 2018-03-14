@@ -1,0 +1,71 @@
+// Fonts
+
+.font-gotham-black {
+	font-family: "Gotham Black";
+}
+.font-gotham-bold {
+	font-family: "Gotham Bold";
+}
+.font-gotham-book {
+	font-family: "Gotham Book";
+}
+.font-gotham-light {
+	font-family: "Gotham Light";
+}
+.font-gotham-medium {
+	font-family: "Gotham Medium";
+}
+
+// Font style
+
+.text-uppercase {
+	text-transform: uppercase;
+}
+
+// Colors
+
+
+// Animations
+
+.transition-all-400-ms {
+  transition: all 400s;
+  -webkit-transition: all 400ms;
+  -moz-transition: all 400ms;
+}
+
+// Margin
+.mg-top {
+	margin-top: 40px;
+}
+
+// Lines
+.line-vertical-top, .line-vertical-bottom {
+	&:before {
+		content: '';
+		position:absolute;
+		left:50%;
+		width: 1px;
+		height: 64px;
+		background: #e6e6e6;
+	}
+}
+.line-vertical-top {
+	padding-top:48px;
+	&:before {
+		top: 0;
+	}
+}
+.line-vertical-bottom {
+	padding-bottom:48px;
+	&:before {
+		bottom: 0;
+	}
+}
+
+@media (max-width: 992px) {
+	.mg-top {
+		br {
+			display: none;
+		}
+	}
+}
