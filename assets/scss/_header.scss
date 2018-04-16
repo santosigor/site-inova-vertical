@@ -8,6 +8,8 @@ header {
 	padding: 10em 0 20em 0;
 	position: relative;
 	text-align: center;
+	max-width: $max-width;
+	margin:0 auto;
 	&:before,	&:after {
 		background: rgba(224, 224, 224, 0.75);
 		content: '';

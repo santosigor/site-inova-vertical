@@ -1,4 +1,6 @@
 footer {
+	max-width: $max-width;
+	margin:0 auto;
 	background-attachment:		scroll;
 	background-color:			$orange;
 	background-image:			url('../../images/svg/bottom-3200.svg');
