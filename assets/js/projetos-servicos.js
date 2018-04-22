@@ -1,10 +1,3 @@
-$('.grid').masonry({
-  columnWidth: '.grid-sizer',
-  gutter: '.gutter-sizer',
-  itemSelector: '.grid-item',
-  percentPosition: true
-});
-
 var initPhotoSwipeFromDOM = function(gallerySelector) {
 
   // parse slide data (url, title, size ...) from DOM elements 
