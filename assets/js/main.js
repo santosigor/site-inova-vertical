@@ -246,7 +246,7 @@ $('.bt-carregar-mais').on('click', function (e) {
 
 // Ancora
 
-$('.acr').click(function(event){        
-  event.preventDefault();
-  $('html,body').animate({scrollTop:$(this.hash).offset().top - 0}, 800);
- });
+$('.acr').on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 800, 'linear');
+});
