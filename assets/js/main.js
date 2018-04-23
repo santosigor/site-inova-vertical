@@ -229,6 +229,8 @@ initPhotoSwipeFromDOM('.my-gallery');
 // exibir mais
 $('.bt-veja-mais').on('click', function (e) {
   e.preventDefault();
+  $(this).hide();
+  $('.text-circle span').css('display', 'block');
   $('#sct-6 .pjt-serv').slice(0, 1).show();
   $('#sct-6 .pjt-2').delay('slow').slideDown('slow');
   if ($('#sct-6 .pjt-serv:hidden').length == 0) {
