@@ -1,5 +1,8 @@
 body {
 	font-size: 1.2em;
+	@media (max-width: 767.98px) {
+		padding-top:54px;
+	}
 }
 
 h1 {
@@ -9,6 +12,24 @@ h1 {
 	margin-bottom:40px;
   line-height: initial;
   text-transform: uppercase;
+}
+
+nav {
+	display:none!important;
+	.navbar-toggler {
+    border: 0;
+    outline:none;
+    padding-right: 0;
+	}
+	.navbar-nav {
+		margin-top:15px;
+		.nav-link {
+    	border-top: 1px solid rgba(255,255,255,.03);
+		}
+	}
+	@media (max-width: 767.98px) {
+		display:block!important;
+	}
 }
 
 .section-container {
@@ -62,6 +83,13 @@ h1 {
 				margin-top:0;
 			}
 		}
+		@media (max-width: 992px) {
+			//padding-bottom: 22px;
+			.mg-top {
+				margin-top:0;
+				margin-bottom: 40px;
+			}
+		}
 	}
 	&#sct-4 {
 		background-color: #3a3a3a;
@@ -87,10 +115,23 @@ h1 {
 			.owl-nav {
 				margin-top:20px;
 				[class*=owl-] {
-					color: #333333;
+					color: #ffffff;
 			    font-size: 34px;
 			    margin: 10px;
-			    background: transparent;
+			    background: $orange-2;
+			    padding:5px 20px;
+			    border-radius:0;
+			    @media (max-width: 992px) {
+						font-size: 28px;
+				    padding:3px 15px;
+			    }
+			    @media (max-width: 767.98px) {
+						font-size: 24px;
+				    padding:2px 10px;
+			    }
+			    @media (max-width: 575.98px) {
+						font-size: 18px;
+			    }
 				}
 			}
 			.owl-dots {
@@ -201,6 +242,20 @@ h1 {
 						  }
 						}
 					}
+				}			
+				@media (max-width: 992px) {
+					position:inherit;
+					top:auto;
+					left:auto;
+					margin: 0 auto;
+					width: 100%;
+					min-height: 388px;
+					div {
+						span {
+							display:block;
+							cursor: default;
+						}
+					}
 				}
 			}
 			.item-pjt {
@@ -218,6 +273,10 @@ h1 {
 				}
 				&.it-pjt-2 {
 					padding-left:3px;
+				}				
+				@media (max-width: 767.98px) {
+					width:100%;
+					float:none;
 				}
 			}
 		}

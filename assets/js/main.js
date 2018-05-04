@@ -4,9 +4,10 @@ $('#clientes').owlCarousel({
   loop:true,
   nav:true,
   navText: ["&larr;","&rarr;"],
+  stagePadding: 40,
   responsive:{
     0:{
-      items:2
+      items:1
     },
     600:{
       items:3
@@ -250,5 +251,6 @@ $('.bt-carregar-mais').on('click', function (e) {
 
 $('.acr').on('click', function(e) {
   e.preventDefault();
-  $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 800, 'linear');
+  $('.navbar-toggler').click();
+  $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top - 50}, 800, 'linear');
 });

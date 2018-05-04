@@ -17,6 +17,38 @@
   </head>
   <body>
 
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="clearfix"></div>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav text-right">
+          <li class="nav-item">
+            <a class="nav-link acr" href="#sct-1">SOBRE NÓS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link acr" href="#sct-2">CERTIFICAÇÃO</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link acr" href="#sct-3">ONDE ATUAMOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link acr" href="#sct-4">O QUE FAZEMOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link acr" href="#sct-5">CLIENTES ATENDIDOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link acr" href="#sct-6">PROJETOS E SERVIÇOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link acr" href="#contato">CONTATO</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
   	<header class="d-flex">
   		<div class="container align-self-center text-center">
   			<div class="logo-icon logo-animation">
@@ -25,7 +57,7 @@
         <div class="logo-text logo-animation">
           <img src="images/logo-text.png" class="img-fluid" alt="">
         </div>
-        <span class="">https://codepen.io/nxworld/pen/OyRrGy</span>
+        <span class="d-none">https://codepen.io/nxworld/pen/OyRrGy</span>
   		</div>
   	</header>
 
@@ -175,10 +207,11 @@
         <div class="text-circle d-flex">
           <div class="align-self-center text-center">
             <h1>Projetos <small class="d-block">e Serviços</small></h1>
-            <a href="#pjt2" class="bt-veja-mais transition-all-400-ms acr" title="Clique aqui">
+            <!-- <a href="#pjt2" class="bt-veja-mais transition-all-400-ms acr" title="Clique aqui">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 485 485" xml:space="preserve"><polygon points="485,227.5 257.5,227.5 257.5,0 227.5,0 227.5,227.5 0,227.5 0,257.5 227.5,257.5 227.5,485 257.5,485 257.5,257.5 485,257.5 " fill="#FFFFFF"/><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
             </a>
-            <span href="#pjt2" class="acr"></span>
+            <span href="#pjt2" class="acr"></span>-->
+            <span></span>
           </div>
         </div>
   			<div class="item-pjt it-pjt-1">
@@ -190,7 +223,7 @@
         </div>
       </div>
       <span id="pjt2"></span>
-      <div class="pjt-2">
+      <!-- <div class="pjt-2">
         <div class="container">
           <div class="row">
             <div class="col-12 col-lg-10 offset-lg-1">
@@ -321,7 +354,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
   	</section>
 
   	<section class="section-container background-white d-flex" id="sct-7">
@@ -343,7 +376,7 @@
       </div>
     </section>
 
-  	<footer class="d-flex">
+  	<footer class="d-flex" id="contato">
   		<div class="container align-self-center">
         <div class="row">
           <div class="col-12 col-lg-10 offset-lg-1">
@@ -356,7 +389,7 @@
             </p><br>
             <p>
               +55 11 4168-8979<br>
-              <a href="mailto:inovavertical@inovavertical.com.br" target="_blank">
+              <a href="mailto:inovavertical@inovavertical.com.br" target="_blank" style="color:#fff">
                 inovavertical@inovavertical.com.br</a>
             </p><br>
             <p class="copy">2018 © INOVA VERTICAL. Todos os direitos reservados.</p>
@@ -366,6 +399,7 @@
   	</footer>
 
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/owl.carousel.min.js"></script>
     <script src="assets/js/photoswipe.min.js"></script>
     <script src="assets/js/photoswipe-ui-default.min.js"></script>
