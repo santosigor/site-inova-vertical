@@ -2,41 +2,114 @@
   session_start();
   require 'init.php';
 ?>
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title Page-->
     <title>Inova Vertical - Admin</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-  </head>
-  <body class="login">
-    <div class="login-wrapper">
-      <div class="text-center">
-        <img src="images/logo-inovavertical.png" alt="">
-      </div>
-      <div class="login-content">
-        <div class="alert alert-warning" role="alert" id="divcaps" style="display:none">O Caps Lock está ativado!</div>
-        <div class="alert alert-warning" role="alert" id="esvazio" style="display:none">Informe seu e-mail e senha!</div>
-        <div class="alert alert-danger" role="alert" id="esincorreto" style="display:none">E-mail ou senha incorretos!</div>
-        <form action="login.php" method="post" name="form" id="form">
-          <div class="form-group">
-            <label>E-mail</label>
-            <input type="email" name="email" id="email" class="form-control" onkeypress="checar_caps_lock(event);">
-          </div>
-          <div class="form-group">
-            <label>Senha</label>
-            <input type="password" name="password" id="password" class="form-control" onkeypress="checar_caps_lock(event);">
-          </div>
-          <a href="javascript:logar()" class="btn btn-primary">Entrar</a>
-        </form>
-      </div>
-      <a href="http://inovavertical.com.br/">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 476.213 476.213" style="enable-background:new 0 0 476.213 476.213;" xml:space="preserve"><polygon points="476.213,223.107 57.427,223.107 151.82,128.713 130.607,107.5 0,238.106 130.607,368.714 151.82,347.5 57.427,253.107 476.213,253.107 "/><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg> Voltar ao site da Inova Vertical
-      </a>
+
+    <!-- Fontfaces CSS-->
+    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/theme.css" rel="stylesheet" media="all">
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <div class="page-content--bge5">
+            <div class="container">
+                <div class="login-wrap">
+                    <div class="login-content">
+                        <div class="login-logo">
+                            <a href="#">
+                                <img src="images/logo-inovavertical.png" alt="">
+                            </a>
+                        </div>
+                        <div class="login-form">
+                          <div class="alert alert-warning" role="alert" id="divcaps" style="display:none">
+                            O Caps Lock está ativado!
+                          </div>
+                          <div class="sufee-alert alert with-close alert-secondary alert-dismissible fade show" id="esvazio" style="display:none">
+                            Informe seu e-mail e senha!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                          <div class="sufee-alert alert with-close alert-danger alert-dismissible fade show" id="esincorreto" style="display:none">
+                            E-mail ou senha incorretos!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                            </button>
+                          </div>
+                            <form action="login.php" method="post" name="form" id="form">
+                                <div class="form-group">
+                                    <label>E-mail</label>
+                                    <input class="au-input au-input--full" type="email" name="email" id="email"  onkeypress="checar_caps_lock(event);">
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input class="au-input au-input--full" type="password" name="password" id="password" onkeypress="checar_caps_lock(event);">
+                                </div>
+                                <button class="btn btn-secondary btn-lg btn-block m-t-25 m-b-20" type="submit">Entrar</button>
+                            </form>
+                            <div class="register-link">
+                                <p>
+                                   <a href="http://inovavertical.com.br/">Voltar ao site da Inova Vertical</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <script src="assets/js/jquery.min.js"></script>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="vendor/slick/slick.min.js">
+    </script>
+    <script src="vendor/wow/wow.min.js"></script>
+    <script src="vendor/animsition/animsition.min.js"></script>
+    <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="vendor/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+    <script src="js/main.js"></script>
 
     <script>
 
@@ -45,33 +118,16 @@
         var url = new URL(url_string);
         var es = url.searchParams.get("es");
         
-        if(es == 2) {
-          $('#esvazio').hide();
+        if(es == 1) {
+          $('#esvazio').show();
+        } else if(es == 2) {
           $('#esincorreto').show();
         }
       }
 
       $('#email, #password').click(function(){
           $('#esvazio, #esincorreto').hide();
-      });
-
-      function logar(){
-        d = document.form;
-        erro=false;
-        if(d.email.value==""){
-          erro=true;
-        }
-        if(d.password.value==""){
-          erro=true;     
-        }
-        if(!erro){
-          d.submit();
-        }
-        else{
-          $('#esincorreto').hide();
-          $('#esvazio').show();
-        } 
-      }        
+      });       
 
       // Verificar se o caps lock esta ativo
       function checar_caps_lock(ev) {
@@ -89,5 +145,7 @@
       document.getElementById('email').focus();
     </script>
 
-  </body>
+</body>
+
 </html>
+<!-- end document-->
