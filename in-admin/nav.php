@@ -3,7 +3,7 @@
   <div class="section__content section__content--p35">
     <div class="header3-wrap">
       <div class="header__logo">
-        <a href="#">
+        <a href="panel.php">
           <img src="images/icon/logo-white.png" alt="" />
         </a>
       </div>
@@ -47,7 +47,7 @@
   <div class="header-mobile__bar">
     <div class="container-fluid">
       <div class="header-mobile-inner">
-        <a class="logo" href="index.html">
+        <a class="logo" href="panel.php">
           <img src="images/icon/logo-white.png" alt="" />
         </a>
       </div>

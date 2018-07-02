@@ -1,4 +1,12 @@
-<?php //include('in-admin/contador-visitas.php'); ?>
+<?php 
+  //include('in-admin/contador-visitas.php');
+  
+  include 'in-admin/banco.php';
+  $pdo = Banco::conectar();
+  $sql = 'SELECT * FROM cliente ORDER BY id DESC';
+  $sql2 = 'SELECT * FROM projeto ORDER BY id DESC';
+                            
+?>
 <!doctype html>
 <html lang="pt-br">
   <head>
@@ -176,27 +184,15 @@
       		<div class="col-12 col-lg-10 offset-lg-1">
       			<h1 class="text-center">CLIENTES ATENDIDOS</h1>
             <div class="owl-carousel owl-theme" id="clientes">
-              <div class="item">
-                <img src="images/cliente-blachere.jpg" alt="">
-              </div>
-              <div class="item">
-                <img src="images/cliente-tecnegocios.jpg" alt="">
-              </div>
-              <div class="item">
-                <img src="images/cliente-timbas.jpg" alt="">
-              </div>
-              <div class="item">
-                <img src="images/cliente-luciane.jpg" alt="">
-              </div>
-              <div class="item">
-                <img src="images/cliente-pba-study.jpg" alt="">
-              </div>
-              <div class="item">
-                <img src="images/cliente-plaza-offices.jpg" alt="">
-              </div>
-              <div class="item">
-                <img src="images/cliente-sanay.jpg" alt="">
-              </div>
+              <?php
+                foreach($pdo->query($sql)as $row)
+                {
+                  echo '<div class="item">';
+                  echo '<img src="in-admin/images/clientes/'. $row['image'] .'" alt="'. $row['name'] .'">';
+                  echo '</div>';
+                }
+                Banco::desconectar();
+              ?>
             </div>
 	  			</div>
 	  		</div>

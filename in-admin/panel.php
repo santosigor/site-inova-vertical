@@ -1,8 +1,33 @@
 <?php
+
+  include 'banco.php';
+
+  // delete
+
+  $id = 0;
+
+  if(!empty($_GET['id']))
+  {
+      $id = $_REQUEST['id'];
+  }
+
+  if(!empty($_POST))
+  {
+      $id = $_POST['id'];
+
+      //Delete do banco:
+      $pdo = Banco::conectar();
+      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      $sql = "DELETE FROM cliente where id = ?";
+      $q = $pdo->prepare($sql);
+      $q->execute(array($id));
+      Banco::desconectar();
+      header("Location: panel.php?res=2");
+  }
+
   include('header.php');
   include('nav.php');
 
-  include 'banco.php';
   $pdo = Banco::conectar();
   $sql = 'SELECT * FROM projeto ORDER BY id DESC';
   $sql2 = 'SELECT * FROM cliente ORDER BY id DESC';
@@ -74,8 +99,8 @@
                   <h3 class="title-5 m-b-35">Projetos</h3>
                   <div class="table-data__tool">
                       <div class="table-data_">
-                          <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                              <i class="zmdi zmdi-plus"></i>add projeto</button>
+                          <a href="cad-projetos.php" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                              <i class="zmdi zmdi-plus"></i>add projeto</a>
                       </div>
                   </div>
                   <div class="table-responsive table-responsive-data2">
@@ -83,7 +108,6 @@
                           <thead>
                               <tr>
                                   <th>Projeto</th>
-                                  <th>Descrição</th>
                                   <th>Realizado em</th>
                                   <th></th>
                               </tr>
@@ -94,11 +118,10 @@
                             {
                                 echo '<tr  class="tr-shadow">';
                                 echo '<td>'. $row['name'] . '</td>';
-                                echo '<td>'. $row['description'] . '</td>';
                                 echo '<td>'. $row['performance_date'] . '</td>';
                                 echo '<td>
                                         <div class="table-data-feature">
-                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="update.php?id='.$row['id'].'">
+                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="update-projeto.php?id='.$row['id'].'">
                                               <i class="zmdi zmdi-edit"></i>
                                           </a>
                                           <a class="item" data-toggle="tooltip" data-placement="top" title="Excluir" href="delete.php?id='.$row['id'].'">
@@ -118,8 +141,8 @@
                   <h3 class="title-5 m-b-35">Clientes</h3>
                   <div class="table-data__tool">
                       <div class="table-data_">
-                          <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                              <i class="zmdi zmdi-plus"></i>add cliente</button>
+                          <a href="cad-cliente.php" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                              <i class="zmdi zmdi-plus"></i>add cliente</a>
                       </div>
                   </div>
                   <div class="table-responsive table-responsive-data2">
@@ -137,16 +160,17 @@
                             {
                                 echo '<tr  class="tr-shadow">';
                                 echo '<td>'. $row2['name'] . '</td>';
-                                echo '<td>'. $row2['image'] . '</td>';
+                                echo '<td><img src="images/clientes/'. $row2['image'] .'" alt="" style="max-width:140px;"></td>';
                                 echo '<td>
                                         <div class="table-data-feature">
-                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="update.php?id='.$row2['id'].'">
+                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="update-cliente.php?id='.$row2['id'].'">
                                               <i class="zmdi zmdi-edit"></i>
                                           </a>
-                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Excluir" href="delete.php?id='.$row2['id'].'">
+                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Excluir" href="panel.php?id='.$row2['id'].'">
                                               <i class="zmdi zmdi-delete"></i>
                                           </a>
                                       </div>
+                                      <input type="hidden" name="id" value="'.$row2['id'].'"/>
                                   </td>';
                                 echo '<tr>';
                                 echo '<tr class="spacer"></tr>';

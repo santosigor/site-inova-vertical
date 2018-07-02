@@ -11,7 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Title Page-->
-  <title>Inova Vertical - Admin</title>
+  <title>INOVA ADMIN</title>
+  <link rel="shortcut icon" href="../images/favicon.png">
 
   <!-- Fontfaces CSS-->
   <link href="css/font-face.css" rel="stylesheet" media="all">

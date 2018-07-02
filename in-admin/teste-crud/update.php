@@ -10,23 +10,16 @@
 	
 	if ( null==$id ) 
             {
-		header("Location: index.php");
+		header("Location: panel.php");
             }
 	
 	if ( !empty($_POST)) 
             {
 		
-		$nomeErro = null;
-		$enderecoErro = null;
-		$telefoneErro = null;
-                $emailErro = null;
-                $sexoErro = null;
-		
-		$nome = $_POST['nome'];
-		$endereco = $_POST['endereco'];
-		$telefone = $_POST['telefone'];
-                $email = $_POST['email'];
-                $sexo = $_POST['sexo'];
+		//Acompanha os erros de validação
+    $nomeErro = null;
+    
+    $nome = $_POST['nome'];
 		
 		//Validação
 		$validacao = true;
@@ -36,60 +29,55 @@
                     $validacao = false;
                 }
 		
-		if (empty($email)) 
-                {
-                    $emailErro = 'Por favor digite o email!';
-                    $validacao = false;
-		} 
-                else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) 
-                {
-                    $emailErro = 'Por favor digite um email válido!';
-                    $validacao = false;
-		}
-		
-		if (empty($endereco)) 
-                {
-                    $endereco = 'Por favor digite o endereço!';
-                    $validacao = false;
-		}
-                
-                if (empty($telefone)) 
-                {
-                    $telefone = 'Por favor digite o telefone!';
-                    $validacao = false;
-		}
-                
-                if (empty($endereco)) 
-                {
-                    $endereco = 'Por favor preenche o campo!';
-                    $validacao = false;
-		}
-		
 		// update data
 		if ($validacao) 
                 {
-                    $pdo = Banco::conectar();
-                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $sql = "UPDATE pessoa  set nome = ?, endereco = ?, telefone = ?, email = ?, sexo = ? WHERE id = ?";
-                    $q = $pdo->prepare($sql);
-                    $q->execute(array($nome,$endereco,$telefone,$email,$sexo,$id));
-                    Banco::desconectar();
-                    header("Location: index.php");
+                  
+        // diretório de destino do arquivo
+        define('DEST_DIR', __DIR__ . '/images/clientes');
+         
+        if (isset($_FILES['arquivo']) && !empty($_FILES['arquivo']['name'])){
+          // se o "name" estiver vazio, é porque nenhum arquivo foi enviado
+           
+          $arquivo = $_FILES['arquivo'];
+       
+          // pega a extensão do arquivo
+          $ext = explode('.', $arquivo['name']);
+          $ext = end($ext);
+       
+          // gera o novo nome
+          $novoNome = uniqid() . '.' . $ext;
+
+          $image .= $novoNome;
+       
+          if (!move_uploaded_file($arquivo['tmp_name'], DEST_DIR . '/' . $novoNome)) {
+            echo "Erro ao enviar arquivo";
+          } else {
+            //echo "Arquivo enviado com sucesso, com o nome:: " . $novoNome;    
+          }
+        }
+
+        $logo = $image;
+
+        $pdo = Banco::conectar();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "UPDATE cliente  set nome = ?, logo = ? WHERE id = ?";
+        $q = $pdo->prepare($sql);
+        $q->execute(array($nome,$logo,$id));
+        Banco::desconectar();
+        header("Location: update-cliente.php?res=1");
 		}
 	} 
         else 
             {
                 $pdo = Banco::conectar();
 		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$sql = "SELECT * FROM pessoa where id = ?";
+		$sql = "SELECT * FROM cliente where id = ?";
 		$q = $pdo->prepare($sql);
 		$q->execute(array($id));
 		$data = $q->fetch(PDO::FETCH_ASSOC);
 		$nome = $data['nome'];
-                $endereco = $data['endereco'];
-                $telefone = $data['telefone'];
-		$email = $data['email'];
-		$sexo = $data['sexo'];
+    $logo = $data['logo'];
 		Banco::desconectar();
 	}
 ?>
@@ -106,70 +94,29 @@
 <body>
     <div class="container">
      
-                <div class="span10 offset1">
-                    <div class="row">
-                        <h3 class="well"> Atualizar Contato </h3>
-                    </div>
-             
-                    <form class="form-horizontal" action="update.php?id=<?php echo $id?>" method="post">
-                        
-                      <div class="control-group <?php echo !empty($nomeErro)?'error':'';?>">
-                        <label class="control-label">Nome</label>
-                        <div class="controls">
-                            <input name="nome" size="50" type="text"  placeholder="Nome" value="<?php echo !empty($nome)?$nome:'';?>">
-                            <?php if (!empty($nomeErro)): ?>
-                                <span class="help-inline"><?php echo $nomeErro;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-                        
-                       <div class="control-group <?php echo !empty($enderecoErro)?'error':'';?>">
-                        <label class="control-label">Endereço</label>
-                        <div class="controls">
-                            <input name="endereco" size="80" type="text"  placeholder="Endereço" value="<?php echo !empty($endereco)?$endereco:'';?>">
-                            <?php if (!empty($enderecoErro)): ?>
-                                <span class="help-inline"><?php echo $enderecoErro;?></span>
-                            <?php endif; ?>
-                        </div>
-                       </div>
-                        
-                       <div class="control-group <?php echo !empty($telefoneErro)?'error':'';?>">
-                        <label class="control-label">Telefone</label>
-                        <div class="controls">
-                            <input name="telefone" size="30" type="text"  placeholder="Telefone" value="<?php echo !empty($telefone)?$telefone:'';?>">
-                            <?php if (!empty($telefoneErro)): ?>
-                                <span class="help-inline"><?php echo $telefoneErro;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-                        
-                        <div class="control-group <?php echo !empty($email)?'error':'';?>">
-                        <label class="control-label">Email</label>
-                        <div class="controls">
-                            <input name="email" size="40" type="text"  placeholder="Email" value="<?php echo !empty($email)?$email:'';?>">
-                            <?php if (!empty($emailErro)): ?>
-                                <span class="help-inline"><?php echo $emailErro;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-                        
-                        <div class="control-group <?php echo !empty($sexoErro)?'error':'';?>">
-                        <label class="control-label">Sexo</label>
-                        <div class="controls">
-                            <input name="sexo" size="1" type="text"  placeholder="Sexo" value="<?php echo !empty($sexo)?$sexo:'';?>">
-                            <?php if (!empty($sexoErro)): ?>
-                                <span class="help-inline"><?php echo $sexoErro;?></span>
-                            <?php endif; ?>
-                        </div>
-                      </div>
-                      
-                        <br/>
-                      <div class="form-actions">
-                          <button type="submit" class="btn btn-success">Atualizar</button>
-                          <a href="index.php" type="btn" class="btn btn-default">Voltar</a>
-                        </div>
-                    </form>
-                </div>                 
+        <div class="span10 offset1">
+          <div class="row">
+              <h3 class="well"> Atualizar Contato </h3>
+          </div>
+          <form action="update-cliente.php?id=<?php echo $id?>" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label>Nome</label>
+              <input type="text" class="form-control" name="nome" required="" value="<?php echo !empty($nome)?$nome: '';?>">
+              <?php if(!empty($nomeErro)): ?>
+                  <span class="form-text text-muted"><?php echo $nomeErro;?></span>
+              <?php endif;?>
+            </div>
+            <div class="form-group">
+              <label>Logo</label>
+              <img src="../images/clientes/<?php echo !empty($logo)?$logo: '';?>" alt="">
+              <input type="file" class="form-control" required="" name="arquivo">
+              <?php if(!empty($imagesErro)): ?>
+                <span class="form-text text-muted"><?php echo $imagesErro;?></span>
+              <?php endif;?>
+            </div>
+            <button type="submit" class="btn btn-success">Atualizar</button>
+          </form>
+      </div>                 
     </div> 
   </body>
 </html>

@@ -112,6 +112,9 @@ nav {
 	}
 	&#sct-5 {
 		#clientes {
+			.item {
+				padding: 0 25px;
+			}
 			.owl-nav {
 				margin-top:20px;
 				[class*=owl-] {

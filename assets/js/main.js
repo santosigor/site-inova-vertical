@@ -1,22 +1,26 @@
-// Clientes
+window.onload = function(){ 
 
-$('#clientes').owlCarousel({
-  loop:true,
-  nav:true,
-  navText: ["&larr;","&rarr;"],
-  stagePadding: 40,
-  responsive:{
-    0:{
-      items:1
-    },
-    600:{
-      items:3
-    },
-    1000:{
-      items:4
+  // Clientes
+
+  $('#clientes').owlCarousel({
+    //loop:true,
+    nav:true,
+    navText: ["&larr;","&rarr;"],
+    //stagePadding: 40,
+    responsive:{
+      0:{
+        items:1
+      },
+      600:{
+        items:3
+      },
+      1000:{
+        items:4
+      }
     }
-  }
-});
+  });
+
+}
 
 // Projetos e Servicos
 
