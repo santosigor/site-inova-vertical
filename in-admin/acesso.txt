@@ -1,2 +1,2 @@
-usu: admin
+usu: inovavertical@inovavertical.com.br
 senha: AdminInova@8102#
