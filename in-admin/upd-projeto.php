@@ -1,11 +1,27 @@
 <?php
   require 'banco.php';
 
+  $id = null;
+  $logobd = '';
+
+  if (!empty($_GET['id'])) { $id = $_REQUEST['id']; }
+
+  $pdo = Banco::conectar();
+  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $sql = "SELECT * FROM cliente where id = ?";
+  $q = $pdo->prepare($sql);
+  $q->execute(array($id));
+  $data = $q->fetch(PDO::FETCH_ASSOC);
+  $logobd = $data['image'];
+  Banco::desconectar();
+
   if (!empty($_POST)) {
+
+    unlink('images/clientes/'.$logobd);
 
     $nome = $_POST['nome'];
     $logo = '';
-    $datec = date("Y-m-d H:i:s");
+    $datem = date("Y-m-d H:i:s");
 
     define('DEST_DIR', __DIR__ . '/images/clientes');
      
@@ -29,14 +45,25 @@
         //echo "Arquivo enviado com sucesso, com o nome:: " . $novoNome;    
       }
     }
+
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO cliente (name, image, created) VALUES(?,?,?)";
+    $sql = "UPDATE cliente  set name = ?, image = ?, modified = ? WHERE id = ?";
     $q = $pdo->prepare($sql);
-    $q->execute(array($nome,$logo,$datec));
+    $q->execute(array($nome,$logo,$datem,$id));
     Banco::desconectar();
-    header("Location: cad-cliente.php?res=1");
+    header("Location: upd-cliente.php?res=2");
 
+  } else {
+    $pdo = Banco::conectar();
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "SELECT * FROM cliente where id = ?";
+    $q = $pdo->prepare($sql);
+    $q->execute(array($id));
+    $data = $q->fetch(PDO::FETCH_ASSOC);
+    $nome = $data['name'];
+    $logo = $data['image'];
+    Banco::desconectar();
   }
 
   include('header.php');
@@ -73,22 +100,27 @@
       <div class="row">
         <div class="col-md-6 offset-md-3">
           <h3 class="title-5 m-b-35">Add Cliente</h3>
-          <div class="sufee-alert alert with-close alert-success alert-dismissible fade show" id="res1" style="display:none">
-            Cliente cadastrado com sucesso!
+          <div class="sufee-alert alert with-close alert-success alert-dismissible fade show" id="res2" style="display:none">
+            Cliente atualizado com sucesso!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form action="cad-cliente.php" method="post" enctype="multipart/form-data">
+          <form action="upd-cliente.php?id=<?php echo $id;?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" class="form-control" name="nome" required="">
+              <input type="text" class="form-control" name="nome" value="<?php echo !empty($nome)?$nome: '';?>">
             </div>
             <div class="form-group">
               <label>Logo</label>
-              <input type="file" class="form-control" required="" name="arquivo">
+              <?php if ($id!=null) { ?>
+              <div style="margin-bottom:25px;max-width: 140px;">
+                <img src="images/clientes/<?php echo !empty($logo)?$logo: '';?>" alt="" required="">
+              </div>
+              <?php } ?>
+              <input type="file" class="form-control" name="arquivo" required="">
             </div>
-            <button type="submit" class="btn btn-success">Adicionar</button>
+            <button type="submit" class="btn btn-success">Atualizar</button>
           </form>
         </div>
       </div>
@@ -106,8 +138,8 @@
     var url_string = window.location.href;
     var url = new URL(url_string);
     var res = url.searchParams.get("res");
-    if(res == 1) {
-      $('#res1').show();
+    if(res == 2) {
+      $('#res2').show();
     }
   }
 </script>

@@ -1,11 +1,6 @@
 <?php 
   //include('in-admin/contador-visitas.php');
-  
   include 'in-admin/banco.php';
-  $pdo = Banco::conectar();
-  $sql = 'SELECT * FROM cliente ORDER BY id DESC';
-  $sql2 = 'SELECT * FROM projeto ORDER BY id DESC';
-                            
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -185,6 +180,8 @@
       			<h1 class="text-center">CLIENTES ATENDIDOS</h1>
             <div class="owl-carousel owl-theme" id="clientes">
               <?php
+                $pdo = Banco::conectar();
+                $sql = 'SELECT * FROM cliente ORDER BY id DESC';
                 foreach($pdo->query($sql)as $row)
                 {
                   echo '<div class="item">';
@@ -220,6 +217,21 @@
         </div>
       </div>
       <span id="pjt2"></span>
+      <?php
+        $pdo = Banco::conectar();
+        $sql = 'SELECT * FROM projeto ORDER BY id DESC';
+        foreach($pdo->query($sql)as $row)
+        {
+          echo '<b>title: </b>'. $row['name'] .'<br>';
+          echo '<b>description: </b>'. $row['description'] .'<br>';
+          $images = explode(",", $row['images']);
+          foreach($images as $img) {
+            echo '<img src="in-admin/images/projetos/'. $img .'" alt=""><br>';
+          }
+          echo '<b>data:</b> '. $row['performance_date'] .'<br><hr>';
+        }
+        Banco::desconectar();
+      ?>
       <!-- <div class="pjt-2">
         <div class="container">
           <div class="row">

@@ -2,35 +2,8 @@
 
   include 'banco.php';
 
-  // delete
-
-  $id = 0;
-
-  if(!empty($_GET['id']))
-  {
-      $id = $_REQUEST['id'];
-  }
-
-  if(!empty($_POST))
-  {
-      $id = $_POST['id'];
-
-      //Delete do banco:
-      $pdo = Banco::conectar();
-      $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $sql = "DELETE FROM cliente where id = ?";
-      $q = $pdo->prepare($sql);
-      $q->execute(array($id));
-      Banco::desconectar();
-      header("Location: panel.php?res=2");
-  }
-
   include('header.php');
   include('nav.php');
-
-  $pdo = Banco::conectar();
-  $sql = 'SELECT * FROM projeto ORDER BY id DESC';
-  $sql2 = 'SELECT * FROM cliente ORDER BY id DESC';
                             
 ?>
 
@@ -68,24 +41,44 @@
                         </div>
                     </div>
                 </div>
+                <?php
+                  $PDO = db_connect();
+                  $sql = "SELECT * FROM projeto";
+                  $stmt = $PDO->prepare($sql);
+                  $stmt->execute();
+                  $proj = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  $projetos = count($proj);
+                  if ($projetos > 0) {
+                ?>
                 <div class="col-md-6 col-lg-4">
-                    <div class="statistic__item statistic__item--blue">
-                        <h2 class="number">20</h2>
-                        <span class="desc">Projetos</span>
-                        <div class="icon">
-                            <i class="zmdi zmdi-money"></i>
-                        </div>
+                  <div class="statistic__item statistic__item--blue">
+                    <h2 class="number"><?php echo $projetos; ?></h2>
+                    <span class="desc">Projetos</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-money"></i>
                     </div>
+                  </div>
                 </div>
+                <?php } ?>
+                <?php
+                  $PDO = db_connect();
+                  $sql = "SELECT * FROM cliente";
+                  $stmt = $PDO->prepare($sql);
+                  $stmt->execute();
+                  $clt = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  $clientes = count($clt);
+                  if ($clientes > 0) {
+                ?>
                 <div class="col-md-6 col-lg-4">
-                    <div class="statistic__item statistic__item--orange">
-                        <h2 class="number">10</h2>
-                        <span class="desc">Clientes</span>
-                        <div class="icon">
-                            <i class="zmdi zmdi-account-o"></i>
-                        </div>
+                  <div class="statistic__item statistic__item--orange">
+                    <h2 class="number"><?php echo $clientes; ?></h2>
+                    <span class="desc">Clientes</span>
+                    <div class="icon">
+                        <i class="zmdi zmdi-account-o"></i>
                     </div>
+                  </div>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </section>
@@ -114,24 +107,26 @@
                           </thead>
                           <tbody>
                             <?php
-                            foreach($pdo->query($sql)as $row)
-                            {
+                              $pdo = Banco::conectar();
+                              $sql = 'SELECT * FROM projeto ORDER BY id DESC';
+                              foreach($pdo->query($sql)as $row) {
                                 echo '<tr  class="tr-shadow">';
                                 echo '<td>'. $row['name'] . '</td>';
                                 echo '<td>'. $row['performance_date'] . '</td>';
                                 echo '<td>
                                         <div class="table-data-feature">
-                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="update-projeto.php?id='.$row['id'].'">
+                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="upd-projeto.php?id='.$row['id'].'">
                                               <i class="zmdi zmdi-edit"></i>
                                           </a>
-                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Excluir" href="delete.php?id='.$row['id'].'">
+                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Excluir" href="del-projeto.php?id='.$row['id'].'">
                                               <i class="zmdi zmdi-delete"></i>
                                           </a>
                                       </div>
                                   </td>';
                                 echo '<tr>';
                                 echo '<tr class="spacer"></tr>';
-                            }
+                              }
+                              Banco::desconectar();
                             ?>
                           </tbody>
                       </table>
@@ -156,26 +151,27 @@
                           </thead>
                           <tbody>
                             <?php
-                            foreach($pdo->query($sql2)as $row2)
-                            {
-                                echo '<tr  class="tr-shadow">';
-                                echo '<td>'. $row2['name'] . '</td>';
-                                echo '<td><img src="images/clientes/'. $row2['image'] .'" alt="" style="max-width:140px;"></td>';
-                                echo '<td>
-                                        <div class="table-data-feature">
-                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="update-cliente.php?id='.$row2['id'].'">
-                                              <i class="zmdi zmdi-edit"></i>
-                                          </a>
-                                          <a class="item" data-toggle="tooltip" data-placement="top" title="Excluir" href="panel.php?id='.$row2['id'].'">
-                                              <i class="zmdi zmdi-delete"></i>
-                                          </a>
-                                      </div>
-                                      <input type="hidden" name="id" value="'.$row2['id'].'"/>
-                                  </td>';
-                                echo '<tr>';
-                                echo '<tr class="spacer"></tr>';
-                            }
-                            Banco::desconectar();
+                              $pdo = Banco::conectar();
+                              $sql = 'SELECT * FROM cliente ORDER BY id DESC';
+                              foreach($pdo->query($sql)as $row) {
+                                  echo '<tr  class="tr-shadow">';
+                                  echo '<td>'. $row['name'] . '</td>';
+                                  echo '<td><img src="images/clientes/'. $row['image'] .'" alt="" style="max-width:140px;"></td>';
+                                  echo '<td>
+                                          <div class="table-data-feature">
+                                            <a class="item" data-toggle="tooltip" data-placement="top" title="Atualizar" href="upd-cliente.php?id='.$row['id'].'">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </a>
+                                            <a class="item" data-toggle="tooltip" data-placement="top" title="Excluir" href="del-cliente.php?id='.$row['id'].'">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </a>
+                                        </div>
+                                        <input type="hidden" name="id" value="'.$row['id'].'"/>
+                                    </td>';
+                                  echo '<tr>';
+                                  echo '<tr class="spacer"></tr>';
+                              }
+                              Banco::desconectar();
                             ?>
                           </tbody>
                       </table>
@@ -187,7 +183,35 @@
     <!-- END DATA TABLE-->
 
     <?php include('copyright.php'); ?>
+      
+    <a id="btres3" href="#" data-toggle="modal" data-target="#res3" style="display: none">modalexclusao</a>
+    <div class="modal fade" id="res3" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document" style="max-width: 320px;">
+        <div class="modal-content">
+          <div class="modal-header" style="border-radius: .3rem;">
+            <h5 class="modal-title" id="smallmodalLabel">Exclusão realizada com sucesso!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>
+
+
+<?php include('scripts-js.php'); ?>
+
+<script>
+  window.onload = function(){ 
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var res = url.searchParams.get("res");
+    if(res == 3) {
+      $('#btres3').click();
+    }
+  }
+</script>
 
 <?php include('footer.php'); ?>
