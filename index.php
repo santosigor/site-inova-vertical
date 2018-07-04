@@ -45,25 +45,25 @@
       <div class="collapse navbar-collapse" id="menu">
         <ul class="navbar-nav text-right">
           <li class="nav-item">
-            <a class="nav-link acr" href="#sct-1">SOBRE NÓS</a>
+            <a class="nav-link navbar-acr" href="#sct-1">SOBRE NÓS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link acr" href="#sct-2">CERTIFICAÇÃO</a>
+            <a class="nav-link navbar-acr" href="#sct-2">CERTIFICAÇÃO</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link acr" href="#sct-3">ONDE ATUAMOS</a>
+            <a class="nav-link navbar-acr" href="#sct-3">ONDE ATUAMOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link acr" href="#sct-4">O QUE FAZEMOS</a>
+            <a class="nav-link navbar-acr" href="#sct-4">O QUE FAZEMOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link acr" href="#sct-5">CLIENTES ATENDIDOS</a>
+            <a class="nav-link navbar-acr" href="#sct-5">CLIENTES ATENDIDOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link acr" href="#sct-6">PROJETOS E SERVIÇOS</a>
+            <a class="nav-link navbar-acr" href="#sct-6">PROJETOS E SERVIÇOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link acr" href="#contato">CONTATO</a>
+            <a class="nav-link navbar-acr" href="#contato">CONTATO</a>
           </li>
         </ul>
       </div>
