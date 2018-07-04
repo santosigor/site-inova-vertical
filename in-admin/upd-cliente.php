@@ -99,7 +99,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 offset-md-3">
-          <h3 class="title-5 m-b-35">Add Cliente</h3>
+          <h3 class="title-5 m-b-35">Atualizar Cliente</h3>
           <div class="sufee-alert alert with-close alert-success alert-dismissible fade show" id="res2" style="display:none">
             Cliente atualizado com sucesso!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -109,13 +109,13 @@
           <form action="upd-cliente.php?id=<?php echo $id;?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" class="form-control" name="nome" value="<?php echo !empty($nome)?$nome: '';?>">
+              <input type="text" class="form-control" name="nome" required="" value="<?php echo !empty($nome)?$nome: '';?>">
             </div>
             <div class="form-group">
               <label>Logo</label>
               <?php if ($id!=null) { ?>
               <div style="margin-bottom:25px;max-width: 140px;">
-                <img src="images/clientes/<?php echo !empty($logo)?$logo: '';?>" alt="" required="">
+                <img src="images/clientes/<?php echo !empty($logo)?$logo: '';?>" alt="">
               </div>
               <?php } ?>
               <input type="file" class="form-control" name="arquivo" required="">

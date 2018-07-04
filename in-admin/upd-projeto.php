@@ -2,67 +2,91 @@
   require 'banco.php';
 
   $id = null;
-  $logobd = '';
+  $imagesbd = '';
 
   if (!empty($_GET['id'])) { $id = $_REQUEST['id']; }
 
   $pdo = Banco::conectar();
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "SELECT * FROM cliente where id = ?";
+  $sql = "SELECT * FROM projeto where id = ?";
   $q = $pdo->prepare($sql);
   $q->execute(array($id));
   $data = $q->fetch(PDO::FETCH_ASSOC);
-  $logobd = $data['image'];
+  $imagesbd = $data['images'];
   Banco::desconectar();
 
   if (!empty($_POST)) {
 
-    unlink('images/clientes/'.$logobd);
+    $imagesdel = explode(",", $imagesbd);
+    foreach($imagesdel as $img) {
+      unlink('images/projetos/'.$img);
+    }
 
     $nome = $_POST['nome'];
-    $logo = '';
+    $descricao = $_POST['descricao'];
+    $performanceDate = $_POST['realizadoem'];
     $datem = date("Y-m-d H:i:s");
+    $imagesArray = '';
 
-    define('DEST_DIR', __DIR__ . '/images/clientes');
+    // diretório de destino do arquivo
+    define('DEST_DIR', __DIR__ . '/images/projetos/');
      
-    if (isset($_FILES['arquivo']) && !empty($_FILES['arquivo']['name'])){
+    if (isset($_FILES['arquivos']) && !empty($_FILES['arquivos']['name'])) {
       // se o "name" estiver vazio, é porque nenhum arquivo foi enviado
        
-      $arquivo = $_FILES['arquivo'];
-   
-      // pega a extensão do arquivo
-      $ext = explode('.', $arquivo['name']);
-      $ext = end($ext);
-   
-      // gera o novo nome
-      $novoNome = uniqid() . '.' . $ext;
+      // cria uma variável para facilitar
+      $arquivos = $_FILES['arquivos'];
 
-      $logo .= $novoNome;
-   
-      if (!move_uploaded_file($arquivo['tmp_name'], DEST_DIR . '/' . $novoNome)) {
-        echo "Erro ao enviar arquivo";
-      } else {
-        //echo "Arquivo enviado com sucesso, com o nome:: " . $novoNome;    
+      // total de arquivos enviados
+      $total = count($arquivos['name']);
+      $ultsemvirg = $total-1;
+
+      for ($i = 0; $i < $total; $i++) {
+
+        // pega a extensão do arquivo
+        $ext = explode('.', $arquivos['name'][$i]);
+        $ext = end($ext);
+     
+        // gera o novo nome
+        $novoNome = uniqid() . '.' . $ext;
+
+        $imagesArray .= $novoNome;
+         
+        if (!move_uploaded_file($arquivos['tmp_name'][$i], DEST_DIR . '/' . $novoNome)) {
+          echo "Erro ao enviar o arquivo: " . $novoNome;
+        }
+
+        if($i != $ultsemvirg) {
+          $imagesArray .= ',';
+        } else {
+          $imagesArray .= '';
+        }
+
       }
+
     }
+
+    $images = $imagesArray;
 
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "UPDATE cliente  set name = ?, image = ?, modified = ? WHERE id = ?";
+    $sql = "UPDATE projeto  set name = ?, description = ?, images = ?, performance_date = ?, modified = ? WHERE id = ?";
     $q = $pdo->prepare($sql);
-    $q->execute(array($nome,$logo,$datem,$id));
+    $q->execute(array($nome,$descricao,$images,$performanceDate,$datem,$id));
     Banco::desconectar();
-    header("Location: upd-cliente.php?res=2");
+    header("Location: upd-projeto.php?res=2");
 
   } else {
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT * FROM cliente where id = ?";
+    $sql = "SELECT * FROM projeto where id = ?";
     $q = $pdo->prepare($sql);
     $q->execute(array($id));
     $data = $q->fetch(PDO::FETCH_ASSOC);
     $nome = $data['name'];
-    $logo = $data['image'];
+    $descricao = $data['description'];
+    $images = $data['images'];
+    $realizadoem = $data['performance_date'];
     Banco::desconectar();
   }
 
@@ -99,26 +123,37 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 offset-md-3">
-          <h3 class="title-5 m-b-35">Add Cliente</h3>
+          <h3 class="title-5 m-b-35">Atualizar projeto</h3>
           <div class="sufee-alert alert with-close alert-success alert-dismissible fade show" id="res2" style="display:none">
-            Cliente atualizado com sucesso!
+            Projeto atualizado com sucesso!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form action="upd-cliente.php?id=<?php echo $id;?>" method="post" enctype="multipart/form-data">
+          <form action="upd-projeto.php?id=<?php echo $id;?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label>Nome</label>
-              <input type="text" class="form-control" name="nome" value="<?php echo !empty($nome)?$nome: '';?>">
+              <input type="text" class="form-control" name="nome" required="" value="<?php echo !empty($nome)?$nome: '';?>">
+            </div>
+            <div class="form-group">
+              <label>Descrição</label>
+              <textarea class="form-control" name="descricao" rows="6" required=""><?php echo !empty($descricao)?$descricao: '';?></textarea>
             </div>
             <div class="form-group">
               <label>Logo</label>
-              <?php if ($id!=null) { ?>
-              <div style="margin-bottom:25px;max-width: 140px;">
-                <img src="images/clientes/<?php echo !empty($logo)?$logo: '';?>" alt="" required="">
-              </div>
-              <?php } ?>
-              <input type="file" class="form-control" name="arquivo" required="">
+              <?php 
+              if ($id!=null) {
+                $imageslst = explode(",", $images);
+                foreach($imageslst as $img) {
+                  echo '<div><img src="images/projetos/'. $img .'" alt=""></div>';
+                }
+              }
+              ?>
+              <input type="file" class="form-control" required="" name="arquivos[]" multiple>
+            </div>
+            <div class="form-group">
+              <label>Realizado em</label>
+              <input type="text" name="realizadoem" class="form-control" required="" value="<?php echo !empty($realizadoem)?$realizadoem: '';?>">
             </div>
             <button type="submit" class="btn btn-success">Atualizar</button>
           </form>

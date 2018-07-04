@@ -1,6 +1,22 @@
 <?php 
   //include('in-admin/contador-visitas.php');
   include 'in-admin/banco.php';
+  require 'in-admin/init.php';
+
+  $PDO = db_connect();
+
+  $sql = "SELECT * FROM cliente";
+  $stmt = $PDO->prepare($sql);
+  $stmt->execute();
+  $cli = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $clientes = count($cli);
+
+  $sql = "SELECT * FROM projeto";
+  $stmt = $PDO->prepare($sql);
+  $stmt->execute();
+  $proj = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $projetos = count($proj);
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -178,6 +194,7 @@
   			<div class="row">
       		<div class="col-12 col-lg-10 offset-lg-1">
       			<h1 class="text-center">CLIENTES ATENDIDOS</h1>
+            <?php if ($clientes > 0) { ?>
             <div class="owl-carousel owl-theme" id="clientes">
               <?php
                 $pdo = Banco::conectar();
@@ -191,6 +208,9 @@
                 Banco::desconectar();
               ?>
             </div>
+            <?php } else { ?>
+              <p class="text-danger text-center">Nenhum cliente cadastrado.</p>
+            <?php } ?>
 	  			</div>
 	  		</div>
   		</div>
@@ -201,11 +221,12 @@
         <div class="text-circle d-flex">
           <div class="align-self-center text-center">
             <h1>Projetos <small class="d-block">e Serviços</small></h1>
-            <!-- <a href="#pjt2" class="bt-veja-mais transition-all-400-ms acr" title="Clique aqui">
+            <?php if ($projetos > 0) { ?>
+            <a href="#pjt2" class="bt-veja-mais transition-all-400-ms acr" title="Clique aqui">
               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 485 485" xml:space="preserve"><polygon points="485,227.5 257.5,227.5 257.5,0 227.5,0 227.5,227.5 0,227.5 0,257.5 227.5,257.5 227.5,485 257.5,485 257.5,257.5 485,257.5 " fill="#FFFFFF"/><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
             </a>
-            <span href="#pjt2" class="acr"></span>-->
-            <span></span>
+            <span href="#pjt2" class="acr"></span>
+            <?php } ?>
           </div>
         </div>
   			<div class="item-pjt it-pjt-1">
@@ -216,112 +237,36 @@
           <img src="images/img-3-projetos-servicos.jpg">
         </div>
       </div>
+      <?php if ($projetos > 0) { ?>
       <span id="pjt2"></span>
-      <?php
-        $pdo = Banco::conectar();
-        $sql = 'SELECT * FROM projeto ORDER BY id DESC';
-        foreach($pdo->query($sql)as $row)
-        {
-          echo '<b>title: </b>'. $row['name'] .'<br>';
-          echo '<b>description: </b>'. $row['description'] .'<br>';
-          $images = explode(",", $row['images']);
-          foreach($images as $img) {
-            echo '<img src="in-admin/images/projetos/'. $img .'" alt=""><br>';
-          }
-          echo '<b>data:</b> '. $row['performance_date'] .'<br><hr>';
-        }
-        Banco::desconectar();
-      ?>
-      <!-- <div class="pjt-2">
+      <div class="pjt-2">
         <div class="container">
           <div class="row">
             <div class="col-12 col-lg-10 offset-lg-1">
-              <div class="pjt-serv">
-                <h2>TecNegócios</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <div class="my-gallery">
-                  <figure>
-                    <a href="images/projetos-servicos/pj-3.jpg" data-size="892x1200">
-                      <img src="images/projetos-servicos/pj-3.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-2.jpg" data-size="1500x1125">
-                      <img src="images/projetos-servicos/pj-2.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-4.jpg" data-size="1500x1125">
-                      <img src="images/projetos-servicos/pj-4.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-1.jpg" data-size="1500x750">
-                      <img src="images/projetos-servicos/pj-1.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-5.jpg" data-size="1500x1125">
-                      <img src="images/projetos-servicos/pj-5.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                </div>
-              </div>
-              <div class="pjt-serv">
-                <h2>Shopping Iguatemi - Alphaville</h2>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                  proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <div class="my-gallery">
-                  <figure>
-                    <a href="images/projetos-servicos/pj-3.jpg" data-size="892x1200">
-                      <img src="images/projetos-servicos/pj-3.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-4.jpg" data-size="1500x1125">
-                      <img src="images/projetos-servicos/pj-4.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-1.jpg" data-size="1500x750">
-                      <img src="images/projetos-servicos/pj-1.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-2.jpg" data-size="1500x1125">
-                      <img src="images/projetos-servicos/pj-2.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                  <figure>
-                    <a href="images/projetos-servicos/pj-5.jpg" data-size="1500x1125">
-                      <img src="images/projetos-servicos/pj-5.jpg" alt="" />
-                    </a>
-                    <figcaption itemprop="caption description">Image caption  1</figcaption>
-                  </figure>
-                </div>      
-              </div>      
+              <?php
+                $pdo = Banco::conectar();
+                $sql = 'SELECT * FROM projeto ORDER BY id DESC';
+                foreach($pdo->query($sql)as $row)
+                {
+                  echo '<div class="pjt-serv">';
+                    echo '<h2>'. $row['name'] .'</h2>';
+                    echo '<p>'. $row['description'] .'<p>';
+                    echo '<p><b>'. $row['performance_date'] .'</b><p>';
+                    echo '<div class="my-gallery">';
+                      $images = explode(",", $row['images']);
+                      foreach($images as $img) {
+                        list($width, $height) = getimagesize("in-admin/images/projetos/".$img);
+                        echo '<figure>';
+                          echo '<a href="in-admin/images/projetos/'. $img .'" data-size="'. $width .'x'. $height .'">';
+                            echo '<img src="in-admin/images/projetos/'. $img .'" alt="" />';
+                          echo '</a>';
+                        echo '</figure>';
+                      }
+                    echo '</div>';
+                  echo '</div>';
+                }
+                Banco::desconectar();
+              ?>   
               <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="pswp__bg"></div>
                 <div class="pswp__scroll-wrap">
@@ -357,13 +302,16 @@
                   </div>
                 </div>
               </div>
+              <?php if ($projetos > 1) { ?>
               <div class="text-center">
                 <a href="#" class="bt-carregar-mais transition-all-400-ms">Mais Projetos e Serviços</a>
               </div>
+              <?php } ?>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
+      <?php } ?>
   	</section>
 
   	<section class="section-container background-white d-flex" id="sct-7">

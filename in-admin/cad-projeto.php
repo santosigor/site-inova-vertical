@@ -20,6 +20,7 @@
 
       // total de arquivos enviados
       $total = count($arquivos['name']);
+      $ultsemvirg = $total-1;
 
       for ($i = 0; $i < $total; $i++) {
 
@@ -36,7 +37,11 @@
           echo "Erro ao enviar o arquivo: " . $novoNome;
         }
 
-        $imagesArray .= ',';
+        if($i != $ultsemvirg) {
+          $imagesArray .= ',';
+        } else {
+          $imagesArray .= '';
+        }
 
       }
 
@@ -50,7 +55,7 @@
     $q = $pdo->prepare($sql);
     $q->execute(array($nome,$descricao,$images,$performanceDate,$datec));
     Banco::desconectar();
-    header("Location: cad-projetos.php?res=1");
+    header("Location: cad-projeto.php?res=1");
 
   }
 
@@ -94,7 +99,7 @@
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <form action="cad-projetos.php" method="post" enctype="multipart/form-data">
+          <form action="cad-projeto.php" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label>Nome</label>
               <input type="text" class="form-control" name="nome" required="">

@@ -92,7 +92,7 @@
                   <h3 class="title-5 m-b-35">Projetos</h3>
                   <div class="table-data__tool">
                       <div class="table-data_">
-                          <a href="cad-projetos.php" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                          <a href="cad-projeto.php" class="au-btn au-btn-icon au-btn--green au-btn--small">
                               <i class="zmdi zmdi-plus"></i>add projeto</a>
                       </div>
                   </div>
