@@ -1,5 +1,5 @@
 <?php 
-  //include('in-admin/contador-visitas.php');
+
   include 'in-admin/banco.php';
   require 'in-admin/init.php';
 
@@ -361,6 +361,25 @@
     <script src="assets/js/photoswipe.min.js"></script>
     <script src="assets/js/photoswipe-ui-default.min.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <script>
+      // Marcador de visitas
+      <?php
+        if(!isset($_COOKIE['visit'])) { ?>
+          setCookie('visit', 1, 30);
+      <?php
+          $arquivo = "in-admin/contador.txt";
+          $contador = 0;
+          $handle = fopen($arquivo, 'r+');
+          $data = fread($handle, 512);
+          $contador = $data + 1;
+          fseek($handle, 0); 
+          fwrite($handle, $contador);
+          fclose($handle);
+        }
+      ?>
+
+    </script>
 
   </body>
 </html>

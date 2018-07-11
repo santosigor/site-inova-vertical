@@ -20,21 +20,15 @@
             <div class="row">
                 <div class="col-md-6 col-lg-4">
                     <div class="statistic__item statistic__item--red">
-                      <?php/*
-                        // Pega o total de visitas únicas de hoje
-                        $total = pegaVisitas();
-                        // Pega o total de visitas únicas desde o começo do mês
-                        $total = pegaVisitas('uniques', 'mes');
-                        // Pega o total de visitas únicas desde o começo do ano
-                        $total = pegaVisitas('uniques', 'ano');
-                        // Pega o total de pageviews de hoje
-                        $total = pegaVisitas('pageviews');
-                        // Pega o total de pageviews desde o começo do mês
-                        $total = pegaVisitas('pageviews', 'mes');
-                        // Pega o total de pageviews desde o começo do ano
-                        $total = pegaVisitas('pageviews', 'ano');*/
+                      <?php
+                        $arquivo = fopen ('contador.txt', 'r');
+                        $linha = '';
+                        while(!feof($arquivo)){
+                          $linha = fgets($arquivo, 1024);
+                        }
+                        fclose($arquivo);
                       ?>
-                        <h2 class="number">100</h2>
+                        <h2 class="number"><?php echo $linha; ?></h2>
                         <span class="desc">Acessos</span>
                         <div class="icon">
                             <i class="zmdi zmdi-calendar-note"></i>
