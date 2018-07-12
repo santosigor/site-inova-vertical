@@ -229,12 +229,26 @@
             <?php } ?>
           </div>
         </div>
+        <?php
+          $pdo = Banco::conectar();
+          $sql = 'SELECT * FROM capa_projeto ORDER BY id DESC';
+          $image1 = '';
+          $image2 = '';
+          $image3 = '';
+          foreach($pdo->query($sql)as $row)
+          {
+            $image1 = $row['image1'];
+            $image2 = $row['image2'];
+            $image3 = $row['image3'];
+          }
+          Banco::desconectar();
+        ?>
   			<div class="item-pjt it-pjt-1">
-          <img src="images/img-1-projetos-servicos.jpg">
+          <img src="in-admin/images/capa-projeto/<?php echo $image1; ?>">
         </div>
         <div class="item-pjt it-pjt-2">
-          <img src="images/img-2-projetos-servicos.jpg" class="mg-bottom">
-          <img src="images/img-3-projetos-servicos.jpg">
+          <img src="in-admin/images/capa-projeto/<?php echo $image2; ?>" class="mg-bottom">
+          <img src="in-admin/images/capa-projeto/<?php echo $image3; ?>">
         </div>
       </div>
       <?php if ($projetos > 0) { ?>
@@ -378,7 +392,6 @@
           fclose($handle);
         }
       ?>
-
     </script>
 
   </body>

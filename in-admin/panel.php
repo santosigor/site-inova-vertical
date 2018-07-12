@@ -86,8 +86,12 @@
                   <h3 class="title-5 m-b-35">Projetos</h3>
                   <div class="table-data__tool">
                       <div class="table-data_">
+                          <a href="capa-projeto.php?id=1" class="au-btn au-btn-icon au-btn--blue au-btn--small mr-2">
+                              <i class="zmdi zmdi-refresh"></i>Atualizar Capa
+                          </a>
                           <a href="cad-projeto.php" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                              <i class="zmdi zmdi-plus"></i>add projeto</a>
+                              <i class="zmdi zmdi-plus"></i>add projeto
+                          </a>
                       </div>
                   </div>
                   <div class="table-responsive table-responsive-data2">

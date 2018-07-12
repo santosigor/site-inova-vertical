@@ -2,37 +2,44 @@
   require 'banco.php';
 
   $id = null;
-  $imagesbd = '';
+  $images = '';
 
   if (!empty($_GET['id'])) { $id = $_REQUEST['id']; }
 
   $pdo = Banco::conectar();
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = "SELECT * FROM projeto where id = ?";
+  $sql = "SELECT * FROM projeto WHERE id = ?";
   $q = $pdo->prepare($sql);
   $q->execute(array($id));
   $data = $q->fetch(PDO::FETCH_ASSOC);
-  $imagesbd = $data['images'];
+  $nome = $data['name'];
+  $descricao = $data['description'];
+  $images = $data['images'];
+  $realizadoem = $data['performance_date'];
   Banco::desconectar();
 
   if (!empty($_POST)) {
 
-    $imagesdel = explode(",", $imagesbd);
-    foreach($imagesdel as $img) {
-      unlink('images/projetos/'.$img);
-    }
-
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
-    $performanceDate = $_POST['realizadoem'];
+    $realizadoem = $_POST['realizadoem'];
     $datem = date("Y-m-d H:i:s");
+
     $imagesArray = '';
 
     // diretório de destino do arquivo
     define('DEST_DIR', __DIR__ . '/images/projetos/');
-     
-    if (isset($_FILES['arquivos']) && !empty($_FILES['arquivos']['name'])) {
-      // se o "name" estiver vazio, é porque nenhum arquivo foi enviado
+
+    if (!isset($_FILES['arquivos']['error']) && is_array($_FILES['arquivos']['error'])) {
+
+    } else {
+      // remove imagens atuais
+      $imagesdel = explode(",", $images);
+      foreach($imagesdel as $img) {
+        unlink('images/projetos/'.$img);
+      }
+
+      $imagesArray = '';
        
       // cria uma variável para facilitar
       $arquivos = $_FILES['arquivos'];
@@ -64,30 +71,18 @@
 
       }
 
-    }
+      $images = $imagesArray;
 
-    $images = $imagesArray;
+    }
 
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "UPDATE projeto  set name = ?, description = ?, images = ?, performance_date = ?, modified = ? WHERE id = ?";
     $q = $pdo->prepare($sql);
-    $q->execute(array($nome,$descricao,$images,$performanceDate,$datem,$id));
+    $q->execute(array($nome,$descricao,$images,$realizadoem,$datem,$id));
     Banco::desconectar();
     header("Location: upd-projeto.php?res=2");
 
-  } else {
-    $pdo = Banco::conectar();
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT * FROM projeto where id = ?";
-    $q = $pdo->prepare($sql);
-    $q->execute(array($id));
-    $data = $q->fetch(PDO::FETCH_ASSOC);
-    $nome = $data['name'];
-    $descricao = $data['description'];
-    $images = $data['images'];
-    $realizadoem = $data['performance_date'];
-    Banco::desconectar();
   }
 
   include('header.php');
@@ -140,20 +135,26 @@
               <textarea class="form-control" name="descricao" rows="6" required=""><?php echo !empty($descricao)?$descricao: '';?></textarea>
             </div>
             <div class="form-group">
-              <label>Logo</label>
+              <label>Realizado em</label>
+              <input type="text" name="realizadoem" class="form-control" required="" value="<?php echo !empty($realizadoem)?$realizadoem: '';?>">
+            </div>
+            <div class="form-group">
+              <label>Imagens</label>
+              <input type="file" class="form-control" name="arquivos[]" multiple>
+            </div>
+            <style>
+              .img-wp {-moz-column-count: 2;-webkit-column-count: 2;column-count: 2;-moz-column-gap: 4px;-webkit-column-gap: 4px;column-gap: 4px;margin-bottom:40px;}
+              .img-wp img{margin-bottom:4px;}
+            </style>
+            <div class="img-wp">
               <?php 
               if ($id!=null) {
                 $imageslst = explode(",", $images);
                 foreach($imageslst as $img) {
-                  echo '<div><img src="images/projetos/'. $img .'" alt=""></div>';
+                  echo '<img src="images/projetos/'. $img .'" alt="">';
                 }
               }
               ?>
-              <input type="file" class="form-control" required="" name="arquivos[]" multiple>
-            </div>
-            <div class="form-group">
-              <label>Realizado em</label>
-              <input type="text" name="realizadoem" class="form-control" required="" value="<?php echo !empty($realizadoem)?$realizadoem: '';?>">
             </div>
             <button type="submit" class="btn btn-success">Atualizar</button>
           </form>
@@ -176,6 +177,7 @@
     if(res == 2) {
       $('#res2').show();
     }
+    alert('ajustar update projeto');
   }
 </script>
 

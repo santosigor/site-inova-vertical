@@ -7,13 +7,13 @@
     $descricao = $_POST['descricao'];
     $performanceDate = $_POST['realizadoem'];
     $datec = date("Y-m-d H:i:s");
-    $imagesArray = '';
 
     // diretório de destino do arquivo
     define('DEST_DIR', __DIR__ . '/images/projetos/');
      
     if (isset($_FILES['arquivos']) && !empty($_FILES['arquivos']['name'])) {
-      // se o "name" estiver vazio, é porque nenhum arquivo foi enviado
+
+      $imagesArray = '';
        
       // cria uma variável para facilitar
       $arquivos = $_FILES['arquivos'];
@@ -45,9 +45,9 @@
 
       }
 
-    }
+      $images = $imagesArray;
 
-    $images = $imagesArray;
+    }
 
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
