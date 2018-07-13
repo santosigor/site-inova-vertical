@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 29-Jun-2018 às 22:45
+-- Generation Time: 14-Jul-2018 às 00:03
 -- Versão do servidor: 10.1.30-MariaDB
 -- PHP Version: 7.2.2
 
@@ -25,6 +25,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `capa_projeto`
+--
+
+CREATE TABLE `capa_projeto` (
+  `id` int(11) NOT NULL,
+  `image1` varchar(255) NOT NULL,
+  `image2` varchar(255) NOT NULL,
+  `image3` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `capa_projeto`
+--
+
+INSERT INTO `capa_projeto` (`id`, `image1`, `image2`, `image3`, `created`, `modified`) VALUES
+(1, '5b47be0959d37.jpg', '5b478f0de83a6.jpg', 'img-3-projetos-servicos.jpg', '2018-07-12 00:00:00', '2018-07-12 22:46:01');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `cliente`
 --
 
@@ -35,6 +57,20 @@ CREATE TABLE `cliente` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `cliente`
+--
+
+INSERT INTO `cliente` (`id`, `name`, `image`, `created`, `modified`) VALUES
+(1, 'Tecnegocios', '5b3cc82291af1.jpg', '2018-07-04 15:14:10', '0000-00-00 00:00:00'),
+(2, 'Sanay', '5b3cc84bd06a3.jpg', '2018-07-04 15:14:51', '0000-00-00 00:00:00'),
+(3, 'Plaza Offices', '5b3cc85e1bfa1.jpg', '2018-07-04 15:15:10', '0000-00-00 00:00:00'),
+(4, 'Delpa', '5b3cc86725980.jpg', '2018-07-04 15:15:19', '0000-00-00 00:00:00'),
+(5, 'Luciane', '5b3cc86fbc72d.jpg', '2018-07-04 15:15:27', '0000-00-00 00:00:00'),
+(6, 'PBA Study', '5b3cc87996fcf.jpg', '2018-07-04 15:15:37', '0000-00-00 00:00:00'),
+(7, 'Timbas', '5b3cc8820186d.jpg', '2018-07-04 15:15:46', '0000-00-00 00:00:00'),
+(8, 'Blackhere', '5b3cc88faea67.jpg', '2018-07-04 15:15:59', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -51,6 +87,14 @@ CREATE TABLE `projeto` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `projeto`
+--
+
+INSERT INTO `projeto` (`id`, `name`, `description`, `images`, `performance_date`, `created`, `modified`) VALUES
+(1, 'Tecnegocios', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\ntempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\nquis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\nconsequat. Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\nproident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '5b47b5962838e.', 'SP - 23/04/2008', '2018-07-12 22:05:51', '2018-07-12 22:09:58'),
+(2, 'ConstruGlass', 'InstalaÃ§Ã£o do quadro de forÃ§a e manutenÃ§Ã£o interna elÃ©trica.', '5b47b4ee67f40.jpg,5b47b4ee68192.jpg,5b47b4ee68370.jpg', 'SP - 23/04/2080', '2018-07-12 22:07:10', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -102,13 +146,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cliente`
 --
 ALTER TABLE `cliente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `projeto`
 --
 ALTER TABLE `projeto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
