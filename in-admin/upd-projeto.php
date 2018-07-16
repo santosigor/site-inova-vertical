@@ -29,11 +29,10 @@
 
     // diretório de destino do arquivo
     define('DEST_DIR', __DIR__ . '/images/projetos/');
+     
+    if (isset($_FILES['arquivos']) && !empty($_FILES['arquivos']['name'])) {
 
-    if (!isset($_FILES['arquivos']['error']) && is_array($_FILES['arquivos']['error'])) {
-
-    } else {
-      // remove imagens atuais
+       // remove imagens atuais
       $imagesdel = explode(",", $images);
       foreach($imagesdel as $img) {
         unlink('images/projetos/'.$img);
@@ -81,7 +80,7 @@
     $q = $pdo->prepare($sql);
     $q->execute(array($nome,$descricao,$images,$realizadoem,$datem,$id));
     Banco::desconectar();
-    header("Location: upd-projeto.php?res=2");
+    header("Location: panel.php?res=2");
 
   }
 
@@ -138,25 +137,33 @@
               <label>Realizado em</label>
               <input type="text" name="realizadoem" class="form-control" required="" value="<?php echo !empty($realizadoem)?$realizadoem: '';?>">
             </div>
-            <div class="form-group">
+            <span onclick="updImages()" class="btn btn-primary text-white mt-2 mb-4 bt-upd-images">ATUALIZAR IMAGENS</span>
+            <div class="form-group" id="updimages" style="display: none">
+              <div class="alert alert-danger" role="alert">
+                As imagens atuais serão removidas!
+              </div>
               <label>Imagens</label>
-              <input type="file" class="form-control" name="arquivos[]" multiple>
+              <input type="file" class="form-control" name="arquivos[]" multiple required="" disabled>
             </div>
+            <div class="clearfix"></div>
             <style>
               .img-wp {-moz-column-count: 2;-webkit-column-count: 2;column-count: 2;-moz-column-gap: 4px;-webkit-column-gap: 4px;column-gap: 4px;margin-bottom:40px;}
               .img-wp img{margin-bottom:4px;}
             </style>
+           <?php 
+            if ($id!=null) { ?>
             <div class="img-wp">
-              <?php 
-              if ($id!=null) {
+              <?php
                 $imageslst = explode(",", $images);
                 foreach($imageslst as $img) {
                   echo '<img src="images/projetos/'. $img .'" alt="">';
-                }
-              }
+                } 
               ?>
             </div>
-            <button type="submit" class="btn btn-success">Atualizar</button>
+            <?php 
+              }
+            ?>
+            <button type="submit" class="btn btn-success">ATUALIZAR</button>
           </form>
         </div>
       </div>
@@ -177,7 +184,11 @@
     if(res == 2) {
       $('#res2').show();
     }
-    alert('ajustar update projeto');
+  }
+  function updImages() {
+    $('#updimages input').removeAttr('disabled');
+    $('#updimages').show();
+    $('.bt-upd-images').hide();
   }
 </script>
 

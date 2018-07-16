@@ -29,6 +29,7 @@
         //echo "Arquivo enviado com sucesso, com o nome:: " . $novoNome;    
       }
     }
+    
     $pdo = Banco::conectar();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO cliente (name, image, created) VALUES(?,?,?)";

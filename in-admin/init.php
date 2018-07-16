@@ -3,7 +3,7 @@
 // constantes com as credenciais de acesso ao banco MySQL
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_PASS', 'cfb20b6cf914c34cedf83dc81020f9acdc7ba88c2');
 define('DB_NAME', 'inovavertical_bd');
  
 // habilita todas as exibições de erros

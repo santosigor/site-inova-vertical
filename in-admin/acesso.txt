@@ -1,2 +1,9 @@
+dbNome = 'inovavertical_bd';
+dbHost = 'localhost';
+dbUsuario = 'root';
+dbSenha = 'cfb20b6cf914c34cedf83dc81020f9a1cd8c79ba88c2';
+
+----------------------------
+
 usu: inovavertical@inovavertical.com.br
 senha: AdminInova@8102#

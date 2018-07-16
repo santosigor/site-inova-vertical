@@ -5,7 +5,7 @@
 
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
-    $performanceDate = $_POST['realizadoem'];
+    $realizadoem = $_POST['realizadoem'];
     $datec = date("Y-m-d H:i:s");
 
     // diretório de destino do arquivo
@@ -53,7 +53,7 @@
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO projeto (name, description, images, performance_date, created) VALUES(?,?,?,?,?)";
     $q = $pdo->prepare($sql);
-    $q->execute(array($nome,$descricao,$images,$performanceDate,$datec));
+    $q->execute(array($nome,$descricao,$images,$realizadoem,$datec));
     Banco::desconectar();
     header("Location: cad-projeto.php?res=1");
 

@@ -181,6 +181,20 @@
     <!-- END DATA TABLE-->
 
     <?php include('copyright.php'); ?>
+
+    <a id="btres2" href="#" data-toggle="modal" data-target="#res2" style="display: none">modalexclusao</a>
+    <div class="modal fade" id="res2" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document" style="max-width: 350px;">
+        <div class="modal-content">
+          <div class="modal-header" style="border-radius: .3rem;">
+            <h5 class="modal-title" id="smallmodalLabel">Atualização realizada com sucesso!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
       
     <a id="btres3" href="#" data-toggle="modal" data-target="#res3" style="display: none">modalexclusao</a>
     <div class="modal fade" id="res3" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
@@ -206,7 +220,9 @@
     var url_string = window.location.href;
     var url = new URL(url_string);
     var res = url.searchParams.get("res");
-    if(res == 3) {
+    if(res == 2) {
+      $('#btres2').click();
+    } else if(res == 3) {
       $('#btres3').click();
     }
   }

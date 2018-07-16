@@ -2,7 +2,7 @@
   require 'banco.php';
 
   $id = null;
-  $logobd = '';
+  $logo = '';
 
   if (!empty($_GET['id'])) { $id = $_REQUEST['id']; }
 
@@ -12,20 +12,22 @@
   $q = $pdo->prepare($sql);
   $q->execute(array($id));
   $data = $q->fetch(PDO::FETCH_ASSOC);
-  $logobd = $data['image'];
+  $nome = $data['name'];
+  $logo = $data['image'];
   Banco::desconectar();
 
   if (!empty($_POST)) {
 
-    unlink('images/clientes/'.$logobd);
-
     $nome = $_POST['nome'];
-    $logo = '';
     $datem = date("Y-m-d H:i:s");
 
     define('DEST_DIR', __DIR__ . '/images/clientes');
      
     if (isset($_FILES['arquivo']) && !empty($_FILES['arquivo']['name'])){
+
+      // remove logo atual
+      unlink('images/clientes/'.$logo);
+
       // se o "name" estiver vazio, é porque nenhum arquivo foi enviado
        
       $arquivo = $_FILES['arquivo'];
@@ -52,18 +54,8 @@
     $q = $pdo->prepare($sql);
     $q->execute(array($nome,$logo,$datem,$id));
     Banco::desconectar();
-    header("Location: upd-cliente.php?res=2");
+    header("Location: panel.php?res=2");
 
-  } else {
-    $pdo = Banco::conectar();
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT * FROM cliente where id = ?";
-    $q = $pdo->prepare($sql);
-    $q->execute(array($id));
-    $data = $q->fetch(PDO::FETCH_ASSOC);
-    $nome = $data['name'];
-    $logo = $data['image'];
-    Banco::desconectar();
   }
 
   include('header.php');
@@ -111,15 +103,17 @@
               <label>Nome</label>
               <input type="text" class="form-control" name="nome" required="" value="<?php echo !empty($nome)?$nome: '';?>">
             </div>
-            <div class="form-group">
+            <span onclick="updImage()" class="btn btn-primary text-white mt-2 mb-4 bt-upd-image">ATUALIZAR LOGO</span>
+            <div class="form-group" id="updimage" style="display: none">
               <label>Logo</label>
-              <?php if ($id!=null) { ?>
-              <div style="margin-bottom:25px;max-width: 140px;">
-                <img src="images/clientes/<?php echo !empty($logo)?$logo: '';?>" alt="">
-              </div>
-              <?php } ?>
-              <input type="file" class="form-control" name="arquivo" required="">
+              <input type="file" class="form-control" name="arquivo" required="" disabled>
             </div>
+            <?php if ($id!=null) { ?>
+            <div style="margin-bottom:25px;max-width: 140px;">
+              <img src="images/clientes/<?php echo !empty($logo)?$logo: '';?>" alt="">
+            </div>
+            <?php } ?>
+            <div class="clearfix"></div>
             <button type="submit" class="btn btn-success">Atualizar</button>
           </form>
         </div>
@@ -141,6 +135,11 @@
     if(res == 2) {
       $('#res2').show();
     }
+  }
+  function updImage() {
+    $('#updimage input').removeAttr('disabled');
+    $('#updimage').show();
+    $('.bt-upd-image').hide();
   }
 </script>
 
