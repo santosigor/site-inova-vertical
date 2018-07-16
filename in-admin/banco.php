@@ -5,7 +5,7 @@ class Banco
     private static $dbNome = 'inovavertical_bd';
     private static $dbHost = 'localhost';
     private static $dbUsuario = 'root';
-    private static $dbSenha = 'cfb20b6cf914c34cedf83dc81020f9acdc7ba88c2';
+    private static $dbSenha = 'cfb20b6cf914c34cedf83dc81020f9a1cd8c79ba88c2';
     
     private static $cont = null;
     
