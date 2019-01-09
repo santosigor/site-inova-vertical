@@ -24,16 +24,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Igor dos Santos - Front End Developer">
-    <meta name="keywords" content="Inova Vertical, Alpinismo Industrial, Lavagem e Pintura, Instalação, Jateamento, Elétrica, Letreiros, Fixaçoes, Eventos, Serviços de Manutenção, Corporativo, Residencial, Projetos especiais"/>
-    <meta name="description" content="Site oficial da Inova Vertical. Dê uma olhada nos projetos e serviços realizados e conheça um pouco mais sobre nós."/>
+    <meta name="description" content="Serviços de Manutenção Residencial, Corporativo, Projetos especiais. Dê uma olhada nos projetos e serviços realizados e conheça a Inova Vertical."/>
     <title>Inova Vertical - Alpinismo Industrial</title>
-    <link rel="shortcut icon" href="images/favicon.png">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="assets/css/photoswipe.css">
-    <link rel="stylesheet" href="assets/css/default-skin/default-skin.css"> 
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="http://inovavertical.com.br/" rel="canonical">
+    <link href="images/favicon-16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="images/favicon-32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="images/favicon-48.png" rel="icon" sizes="48x48" type="image/png">
+    <link href="images/favicon-62.png" rel="icon" sizes="62x62" type="image/png">
+    <link href="images/favicon-192.png" rel="icon" sizes="192x192" type="image/png">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="assets/css/owl.theme.default.min.css" rel="stylesheet">
+    <link href="assets/css/photoswipe.css" rel="stylesheet">
+    <link href="assets/css/default-skin/default-skin.css" rel="stylesheet"> 
+    <link href="assets/css/main.css" rel="stylesheet">
   </head>
   <body>
 
@@ -377,7 +381,6 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-      // Marcador de visitas
       <?php
         if(!isset($_COOKIE['visit'])) { ?>
           setCookie('visit', 1, 30);
